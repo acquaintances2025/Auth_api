@@ -118,3 +118,10 @@ async def confirm_registration(code, token):
     except Exception as exc:
         logger.error(f"Ошибка исполнения процесса {exc}")
         return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
+
+async def auth_user(auth_data):
+    user_id, error = await UserWorks().authorization_user(auth_data.email, auth_data.phone, auth_data.password)
+    if user_id is not None:
+        pass
+    else:
+        return JSONResponse(status_code=401, content={"answer": "Логин или пароль не верен"})

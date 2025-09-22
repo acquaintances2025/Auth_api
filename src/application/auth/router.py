@@ -7,7 +7,7 @@ from .path import AUTHORIZATION, REGISTRATION, CONFIRMATION
 
 from src.domain import RegistrationUser, ConfirmationUser, AuthUser
 from src.infrastructure import logger
-from .views import create_user, confirm_registration
+from .views import create_user, confirm_registration, auth_user
 
 auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 security = HTTPBearer(auto_error=False)
@@ -72,12 +72,12 @@ async def registration_user(user_data: RegistrationUser):
     })
 async  def confirmation_user(code: ConfirmationUser,
                              token: HTTPAuthorizationCredentials | None = Depends(security)):
-    # try:
+    try:
         result = await confirm_registration(code.code, token.credentials)
         return result
-    # except Exception as exc:
-    #     logger.error(f"Ошибка исполнения процесса {exc}")
-    #     return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
+    except Exception as exc:
+        logger.error(f"Ошибка исполнения процесса {exc}")
+        return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
 
 
 
@@ -108,7 +108,8 @@ async  def confirmation_user(code: ConfirmationUser,
                   })
 async def authorization_user(user_data: AuthUser):
     try:
-        pass
+        result = await auth_user(user_data)
+        return result
     except Exception as exc:
         logger.error(f"В процессе подтверждения пользователя произошла ошибка {exc}")
         return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})

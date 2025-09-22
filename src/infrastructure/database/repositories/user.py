@@ -3,11 +3,13 @@ import json
 from datetime import datetime, date, timedelta
 
 from sqlalchemy import select, or_, insert, and_, update
+from starlette.responses import JSONResponse
 
 from ..models.user import TableUserModel
 from ..models.confirmation_code import ConfirmationCodeModel
 from src.domain import UserModel
 
+from src.infrastructure import verify_password
 from src.infrastructure.database.db.connection import db
 from .base import BaseRepository
 
@@ -85,5 +87,20 @@ class UserWorks(BaseRepository):
                     await session.execute(update_code)
                     await session.commit()
                     return False
+
+    async def authorization_user(self, email, phone, password):
+        conditions = []
+        conditions.append(TableUserModel.email == email)
+        conditions.append(TableUserModel.number == phone)
+        async with self.session() as session:
+            user_password = select(TableUserModel.password, TableUserModel.id).where(and_(*conditions))
+            data_users = await session.execute(user_password)
+            result = data_users.mappings().first()
+            if result is None:
+                return None, False
+            if await verify_password(password, result["password"]) is True:
+                return result["id"], True
+            else:
+                return None, False
 
 

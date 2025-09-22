@@ -3,9 +3,13 @@ from .security.password_hasher import verify_password, get_password_hash
 from .loggings.logger import logger
 from .mail_service.sending_mail import send_email
 from .sms_service.sending_sms import send_number
+from .database.db.connection import db
+
+
 
 
 __all__ = [
+    "db",
     "logger",
     "create_refresh_token",
     "create_access_token",
