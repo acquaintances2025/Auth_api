@@ -1,7 +1,0 @@
-2025-09-17 19:42:24.061 ERROR app.application.auth.views create_user 62 Ошибка исполнения процесса 'method' object does not support the asynchronous context manager protocol
-2025-09-17 21:17:42.932 ERROR app.application.auth.views create_user 62 Ошибка исполнения процесса 'method' object does not support the asynchronous context manager protocol
-2025-09-17 21:18:38.466 ERROR app.application.auth.views create_user 62 Ошибка исполнения процесса bcrypt: no backends available -- recommend you install one (e.g. 'pip install bcrypt')
-2025-09-17 21:19:41.967 ERROR app.application.auth.views create_user 62 Ошибка исполнения процесса 'method' object does not support the asynchronous context manager protocol
-2025-09-17 21:20:22.181 ERROR app.application.auth.router authorization_user 42 Ошибка исполнения процесса 'method' object does not support the asynchronous context manager protocol
-2025-09-19 02:53:04.936 INFO app.infrastructure.mail_service.sending_mail send_email 33 Произошла ошибка при отправке письма: [WinError 10053] Программа на вашем хост-компьютере разорвала установленное подключение
-2025-09-19 02:53:44.198 INFO app.infrastructure.mail_service.sending_mail send_email 30 Письмо успешно отправлено на i@dok2412.ru
