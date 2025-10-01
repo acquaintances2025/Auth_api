@@ -2,7 +2,7 @@ import uvicorn
 
 from src.config.settings import Config
 
-from src.core.app_app import create_app
+from src.infrastructure.core.app_app import create_app
 
 app = create_app()
 

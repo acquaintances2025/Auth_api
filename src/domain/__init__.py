@@ -8,6 +8,9 @@ from .confirmation_user import ConfirmationUser
 from .user_entity import UserModel
 from .token_entity import TokenModel
 from .code_entity import CodeModel
+from .password_update import PasswordUpdate
+
+from .base_response import BaseResponse
 
 
 
@@ -20,5 +23,7 @@ __all__ = [
     "ConfirmationUser",
     "UserModel",
     "TokenModel",
-    "CodeModel"
+    "CodeModel",
+    "BaseResponse",
+    "PasswordUpdate"
 ]

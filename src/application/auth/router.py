@@ -1,13 +1,15 @@
-from fastapi import APIRouter, Depends
+# from idlelib.query import Query
+
+from fastapi import APIRouter, Depends, Query
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 
-from .path import AUTHORIZATION, REGISTRATION, CONFIRMATION
+from .path import AUTHORIZATION, REGISTRATION, CONFIRMATION, PASSWORDRECOVERY, PASSWORDUPDATE
 
-from src.domain import RegistrationUser, ConfirmationUser, AuthUser
-from src.infrastructure import logger
-from .views import create_user, confirm_registration, auth_user
+from src.domain import RegistrationUser, ConfirmationUser, AuthUser, PasswordUpdate
+from src.infrastructure import logger, BaseResponseController
+from .views import create_user, confirm_registration, auth_user, password_recovery, user_password_update
 
 auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 security = HTTPBearer(auto_error=False)
@@ -44,8 +46,7 @@ async def registration_user(user_data: RegistrationUser):
        return result
     except Exception as exc:
         logger.error(f"Ошибка исполнения процесса {exc}")
-        return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
-
+        return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
 
 @auth_router.post(CONFIRMATION,
                   summary="Подтверждение регистрации пользователя",
@@ -77,7 +78,7 @@ async  def confirmation_user(code: ConfirmationUser,
         return result
     except Exception as exc:
         logger.error(f"Ошибка исполнения процесса {exc}")
-        return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
+        return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
 
 
 
@@ -112,4 +113,51 @@ async def authorization_user(user_data: AuthUser):
         return result
     except Exception as exc:
         logger.error(f"В процессе подтверждения пользователя произошла ошибка {exc}")
-        return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
+        return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
+
+
+@auth_router.get(PASSWORDRECOVERY,
+                 summary="Восстановление пароля пользователя от аккаунта",
+                  response_description="Отправляет письмо с колом подтверждения для восстановления аккаунта пользователя",
+                  responses={
+                      "200": {
+                          "description": "Успешное выполнение запроса",
+                          "content": {
+                              "application/json": {
+                                  "example": {
+                                      "isSuccess": True,
+                                      "message": "Отправлен код для подтверждения входа в аккаунт",
+                                      "data": {}
+                                  }
+                              }
+                          }
+                      },
+                      "400": {
+                          "description": "Ошибка в запросе"
+                      },
+                      "500": {
+                          "description": "Внутренняя ошибка сервера"
+                      }
+                  })
+async def user_password_recovery(email: str = Query(default=None, description="Email пользователя для восстановления пароля"),
+                                 token: HTTPAuthorizationCredentials | None = Depends(security)
+                                 # phone: str = Query(default=None, description="Номер телефона пользователя")
+                                 ):
+    try:
+        result = await password_recovery(email, token)
+        return result
+    except Exception as exc:
+        logger.error(f"В процессе подтверждения пользователя произошла ошибка {exc}")
+        return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
+
+
+
+@auth_router.post(PASSWORDUPDATE)
+async def password_update(user_data: PasswordUpdate):
+    # try:
+        result = await user_password_update(user_data)
+        return result
+    # except Exception as exc:
+    #     logger.error(f"В процессе подтверждения пользователя произошла ошибка {exc}")
+    #     return JSONResponse(status_code=500, content=BaseResponseController().create_error_response(
+    #         "Возникла ошибка исполнения процесса.").dict())

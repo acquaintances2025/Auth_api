@@ -18,8 +18,8 @@ async def send_email(user_email, code):
     msg['From'] = os.getenv("MAIL_SERVICE_USER")
     msg['To'] = user_email
 
-    msg['Subject'] = "Подтверждение регистрации."
-    email_body = f"Ваш код подтверждения:{str(code)}"
+    msg['Subject'] = "Код подтверждения."
+    email_body = f"Ваш код подтверждения: {str(code)}"
     msg.attach(MIMEText(email_body, 'html'))
 
     try:
@@ -27,7 +27,7 @@ async def send_email(user_email, code):
             server.starttls()
             server.login (Config.MAIL_SERVICE_USER, Config.MAIL_SERVICE_PASS)
             server.send_message(msg)
-            logger.info(f"Письмо успешно отправлено на {user_email}")
+            logger.info(f"Письмо с кодом подтверждения успешно отправлено на {user_email}")
             return True
     except Exception as e:
         logger.info(f'Произошла ошибка при отправке письма: {e}')

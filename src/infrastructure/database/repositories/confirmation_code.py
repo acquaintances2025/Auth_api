@@ -13,6 +13,6 @@ class CodeWorks(BaseRepository):
 
     async def create_confirmation_code(self, user_id: int, confirmation_code: int) -> None:
         async with self.session() as session:
-            add_user_code = insert(ConfirmationCodeModel).values(user_id=user_id[0], code=confirmation_code, created_at=datetime.now())
+            add_user_code = insert(ConfirmationCodeModel).values(user_id=user_id, code=confirmation_code, created_at=datetime.now())
             await session.execute(add_user_code)
             await session.commit()

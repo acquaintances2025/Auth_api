@@ -1,0 +1,121 @@
+2025-09-24 20:28:39.340 ERROR src.application.auth.router user_password_recovery 149 В процессе подтверждения пользователя произошла ошибка [WinError 1225] Удаленный компьютер отклонил это сетевое подключение
+2025-09-24 20:29:36.513 ERROR src.application.auth.router user_password_recovery 149 В процессе подтверждения пользователя произошла ошибка 'int' object is not subscriptable
+2025-09-24 20:31:43.352 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо успешно отправлено на i@dok24.12.ru
+2025-09-24 20:34:35.574 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо успешно отправлено на i@dok24.13.ru
+2025-09-24 20:35:43.169 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо успешно отправлено на i@dok24.12.ru
+2025-09-24 20:39:07.887 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 20:40:26.324 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:24:26.340 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:27:05.432 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:28:37.019 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:28:48.631 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:32:19.794 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:33:15.108 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:33:43.528 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-24 21:36:29.121 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-26 16:18:00.527 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на DoK2.4.12@yandex.ru
+2025-09-26 16:21:32.401 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-26 16:21:58.390 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-26 16:24:13.755 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok24.12.ru
+2025-09-26 16:26:54.355 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Данный пользователь уже зарегистрирован
+2025-09-26 16:27:33.824 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok24.12.ru
+2025-09-26 16:28:15.605 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok24.12.ru
+2025-09-26 16:29:01.470 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok24.12.ru
+2025-09-26 16:30:38.836 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok24.12.ru
+2025-09-26 16:31:51.152 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok24.12.ru
+2025-09-26 16:32:57.092 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok24.12.ru
+2025-09-26 16:36:04.097 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:38:01.645 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:39:24.672 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:40:15.867 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:41:11.065 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:42:16.291 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:42:46.089 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:43:55.006 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:45:24.500 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-26 16:49:07.734 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-29 11:09:18.552 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-29 13:42:58.095 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен
+2025-09-29 13:44:04.969 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен
+2025-09-29 14:00:14.591 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-29 14:01:54.711 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-29 14:03:16.269 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-29 14:03:52.072 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-29 14:04:38.963 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-29 14:05:28.075 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-29 14:08:51.218 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом регистрации успешно отправлено на i@dok2412.ru
+2025-09-29 14:09:12.134 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-29 14:11:04.533 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-29 16:16:25.506 ERROR src.infrastructure.security.jwt_prowider decode_token 30 Ошибка при проверке токена: Invalid token type. Token must be a <class 'bytes'>
+2025-09-29 16:16:25.508 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Срок жизни токена истек
+2025-09-29 16:24:05.720 ERROR src.application.auth.router user_password_recovery 150 В процессе подтверждения пользователя произошла ошибка 'id'
+2025-09-29 16:24:05.720 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-09-29 16:29:33.520 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-29 16:31:14.394 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-29 16:31:37.116 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 15:50:27.130 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 15:51:42.804 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 16:04:03.533 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пользователь не найден
+2025-09-30 16:04:08.977 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 16:17:19.934 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Нарушение правил общепринятого стандарта паролей.
+2025-09-30 16:17:55.935 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Введенные пароли не совпадают
+2025-09-30 16:18:01.711 ERROR src.application.auth.router password_update 161 В процессе подтверждения пользователя произошла ошибка (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: character varying = integer
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+[SQL: SELECT DISTINCT confirmation_code.active, confirmation_code.created_at 
+FROM confirmation_code JOIN users ON confirmation_code.user_id = users.id 
+WHERE users.uuid = $1::INTEGER AND confirmation_code.code = $2::INTEGER AND confirmation_code.active = true]
+[parameters: (91, 85007)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-30 16:18:01.712 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-09-30 16:24:06.606 ERROR src.application.auth.router password_update 161 В процессе подтверждения пользователя произошла ошибка (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: <built-in function id> ('builtin_function_or_method' object cannot be interpreted as an integer)
+[SQL: SELECT confirmation_code.created_at 
+FROM confirmation_code 
+WHERE confirmation_code.user_id = $1::INTEGER]
+[parameters: (<built-in function id>,)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2025-09-30 16:24:06.607 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-09-30 17:11:30.181 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:11:53.922 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 17:12:32.233 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:14:36.049 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:15:29.301 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пароль успешно обновлен.
+2025-09-30 17:17:33.628 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 17:17:50.216 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пароль успешно обновлен.
+2025-09-30 17:38:07.037 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:39:01.551 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:39:43.856 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:40:24.649 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:41:11.525 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пароль успешно обновлен.
+2025-09-30 17:41:16.502 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пароль успешно обновлен.
+2025-09-30 17:41:56.574 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пароль успешно обновлен.
+2025-09-30 17:42:08.706 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Пароль успешно обновлен.
+2025-09-30 17:49:52.116 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения не найден.
+2025-09-30 17:49:58.542 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения не найден.
+2025-09-30 17:50:04.034 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения не найден.
+2025-09-30 17:50:28.336 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения устарел.
+2025-09-30 17:50:41.638 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 17:52:50.939 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на alena_shvetsova_95@mail.ru
+2025-09-30 17:54:27.217 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на alena_shvetsova_95@mail.ru
+2025-09-30 17:56:18.837 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на alena_shvetsova_95@mail.ru
+2025-09-30 17:57:04.887 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на alena_shvetsova_95@mail.ru
+2025-09-30 18:00:24.780 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok1412.ru
+2025-09-30 18:01:01.176 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Данный пользователь уже зарегистрирован
+2025-09-30 18:01:10.564 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok1413.ru
+2025-09-30 18:01:41.416 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok1414.ru
+2025-09-30 18:03:26.211 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok1416.ru
+2025-09-30 18:08:55.153 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 18:10:44.401 ERROR src.application.auth.router user_password_recovery 150 В процессе подтверждения пользователя произошла ошибка invalid literal for int() with base 10: 'aa831886-8fbb-440e-a879-a6da963b4bba'
+2025-09-30 18:10:44.402 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-09-30 18:13:07.113 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 18:14:51.518 ERROR src.application.auth.views confirm_registration 121 Ошибка исполнения процесса (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: integer = character varying
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+[SQL: SELECT DISTINCT confirmation_code.active, confirmation_code.created_at 
+FROM confirmation_code JOIN users ON confirmation_code.user_id = users.id 
+WHERE users.id = $1::VARCHAR AND confirmation_code.code = $2::INTEGER AND confirmation_code.active = true]
+[parameters: ('98', 73663)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-09-30 18:14:51.518 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-09-30 18:15:54.826 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-09-30 18:17:11.506 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2413.ru
+2025-09-30 18:19:10.430 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2414.ru
+2025-09-30 18:20:06.878 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2414.ru

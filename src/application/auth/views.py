@@ -13,6 +13,7 @@ from src.infrastructure import (
     get_password_hash,
     send_email,
     send_number,
+    BaseResponseController,
     logger)
 
 from src.infrastructure.database import (
@@ -26,17 +27,18 @@ async def create_user(user_data):
     try:
         if user_data.email is None and user_data.number is None:
             return JSONResponse(status_code=400,
-                                content={"answer": "Отсутствует обязательный параметр (номер телефона/email) при регистрации."})
+                                content=BaseResponseController().create_error_response("Отсутствует обязательный параметр (номер телефона/email) при регистрации.").dict()
+                                )
         if user_data.password != user_data.confirm_password:
             return JSONResponse(
                 status_code=400,
-                content={"answer": "Введенные пароли не совпадают"}
+                content=BaseResponseController().create_error_response("Введенные пароли не совпадают").dict()
             )
         else:
             if re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$', user_data.password) is None:
                 return JSONResponse(
                     status_code=400,
-                    content={"answer": "Нарушение правил общепринятого стандарта паролей."}
+                    content=BaseResponseController().create_error_response("Нарушение правил общепринятого стандарта паролей.").dict()
                 )
             hash_password = await get_password_hash(user_data.password)
 
@@ -47,7 +49,7 @@ async def create_user(user_data):
             except EmailNotValidError:
                 return JSONResponse(
                     status_code=400,
-                    content={"answer": "Email не соответствует стандарту"}
+                    content=BaseResponseController().create_error_response("Email не соответствует стандарту").dict()
                 )
         else:
             email = None
@@ -68,29 +70,29 @@ async def create_user(user_data):
         if check_user is not None:
             return JSONResponse(
                 status_code=400,
-                content={"answer": "Данный пользователь уже зарегистрирован"}
+                content=BaseResponseController().create_error_response("Данный пользователь уже зарегистрирован").dict()
             )
 
         uuid_user= uuid.uuid4()
         add_user = await UserWorks().create_user(uuid_user, email, phone, hash_password, user_data.name, user_data.lastname, user_data.surname, user_data.birthday)
         if add_user is not None:
-            access_token = await create_access_token(uuid_user)
-            refresh_token = await create_refresh_token(uuid_user)
+            access_token = await create_access_token(add_user[0])
+            refresh_token = await create_refresh_token(add_user[0])
             await TokenWorks().create_token(add_user, access_token, refresh_token)
         confirmation_code = random.randint(10000, 99999)
-        await CodeWorks().create_confirmation_code(add_user, confirmation_code)
+        await CodeWorks().create_confirmation_code(add_user[0], confirmation_code)
         if email is not None:
             sent_answer = await send_email(email, confirmation_code)
 
             if sent_answer is True:
                 return JSONResponse(
                     status_code=200,
-                    content={"access_token": access_token, "refresh_token": refresh_token}
+                    content=BaseResponseController().create_success_response("Успешное выполнение запроса", {"access_token": access_token, "refresh_token": refresh_token}).dict()
                 )
             else:
                 return JSONResponse(
                     status_code=400,
-                    content="В процессе отправки письма произошла ошибка"
+                    content=BaseResponseController().create_error_response("В процессе отправки письма произошла ошибка").dict()
                 )
         #метод регистрации пользователя по номеру телефона, разблокировать в лучшие времена (рабочее)
         # if phone is not None:
@@ -99,7 +101,7 @@ async def create_user(user_data):
 
     except Exception as exc:
         logger.error(f"Ошибка исполнения процесса {exc}")
-        return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
+        return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
 
 
 async def confirm_registration(code, token):
@@ -108,20 +110,100 @@ async def confirm_registration(code, token):
         if error is False:
             return JSONResponse(
                 status_code=401,
-                content={"answer": "Срок жизни токена истек"}
+                content=BaseResponseController().create_error_response("Срок жизни токена истек").dict()
             )
-        check_user_code = await UserWorks().confirmation_registration(payload["uuid_user"], code)
+        check_user_code = await UserWorks().confirmation_registration(payload["user_id"], code)
         if check_user_code is True:
-            return JSONResponse(status_code=200, content={"answer": "Учетная запись пользователя активирована."})
+            return JSONResponse(status_code=200, content=BaseResponseController().create_success_response("Учетная запись пользователя активирована.").dict())
         else:
-            return JSONResponse(status_code=400, content={"answer":"Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку"})
+            return JSONResponse(status_code=400, content=BaseResponseController().create_error_response("Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку").dict())
     except Exception as exc:
         logger.error(f"Ошибка исполнения процесса {exc}")
-        return JSONResponse(status_code=500, content={"answer": "Возникла ошибка исполнения процесса."})
+        return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
 
 async def auth_user(auth_data):
     user_id, error = await UserWorks().authorization_user(auth_data.email, auth_data.phone, auth_data.password)
     if user_id is not None:
-        pass
+        access_token = await create_access_token(user_id)
+        refresh_token = await create_refresh_token(user_id)
+        user_token_update = await UserWorks().update_user_token(user_id, access_token, refresh_token)
+        if user_token_update is True:
+            return JSONResponse(
+                status_code=200,
+                content=BaseResponseController().create_success_response("Успешное выполнение запроса", {"access_token": access_token, "refresh_token": refresh_token}).dict()
+            )
+        else:
+            return JSONResponse(status_code=400, content=BaseResponseController().create_error_response("Не удалось обновить токен доступа пользователя, повторите попытку").dict())
     else:
-        return JSONResponse(status_code=401, content={"answer": "Логин или пароль не верен"})
+        return JSONResponse(status_code=401, content=BaseResponseController().create_error_response("Логин или пароль не верен").dict())
+
+async def password_recovery(email, token=None, phone=None):
+    if token is not None:
+        payload, error = await decode_token(token.credentials)
+        if error is False:
+            return JSONResponse(
+                status_code=401,
+                content=BaseResponseController().create_error_response("Срок жизни токена истек").dict()
+            )
+        user_id = int(payload["user_id"])
+        email = await UserWorks().check_user_in_user_id(user_id)
+    else:
+        user_id = await UserWorks().check_user_in_email_or_phone(email, phone)
+        if user_id is None:
+            return JSONResponse(
+                status_code=400,
+                content=BaseResponseController().create_error_response("Пользователь не найден").dict()
+            )
+    confirmation_code = random.randint(10000, 99999)
+    await CodeWorks().create_confirmation_code(user_id, confirmation_code)
+    if email is not None:
+        sent_answer = await send_email(email, confirmation_code)
+        if sent_answer is True:
+            return JSONResponse(status_code=200, content=BaseResponseController().create_success_response("Код подтверждения отправлен на указанный email", {"user_id": user_id}).dict())
+        else:
+            return JSONResponse(status_code=400, content=BaseResponseController().create_error_response("Не удалось отправить код подтверждения на указанный email").dict())
+
+    # метод регистрации пользователя по номеру телефона, разблокировать в лучшие времена (рабочее)
+    # if phone is not None:
+    #     await send_number(phone, confirmation_code)
+
+
+async def user_password_update(user_data):
+
+    if user_data.password != user_data.confirm_password:
+        return JSONResponse(
+            status_code=400,
+            content=BaseResponseController().create_error_response("Введенные пароли не совпадают").dict()
+        )
+    else:
+        if re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$', user_data.password) is None:
+            return JSONResponse(
+                status_code=400,
+                content=BaseResponseController().create_error_response(
+                    "Нарушение правил общепринятого стандарта паролей.").dict()
+            )
+    check_user_code, answer = await UserWorks().check_user_code_in_user_id(user_data.user_id, user_data.code)
+    print(check_user_code)
+    if check_user_code is True:
+        hash_password = await get_password_hash(user_data.password)
+        new_password, answer = await UserWorks().update_password(hash_password, user_data.user_id)
+        if new_password is True:
+            return JSONResponse(
+                status_code=200,
+                content=BaseResponseController().create_success_response(
+                    answer).dict()
+            )
+        else:
+            return JSONResponse(
+                status_code=400,
+                content=BaseResponseController().create_error_response(
+                    answer).dict()
+            )
+
+    else:
+        return JSONResponse(
+            status_code=400,
+            content=BaseResponseController().create_error_response(
+                answer).dict()
+        )
+

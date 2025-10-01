@@ -5,17 +5,17 @@ from typing import Tuple, Optional, Dict, Optional, Any
 from src.config.settings import Config
 from ..loggings.logger import logger
 
-async  def create_access_token(uuid_user):
-    to_encode = {"uuid_user": str(uuid_user)}
+async  def create_access_token(user_id):
+    to_encode = {"user_id": user_id}
     expires = datetime.utcnow() + timedelta(minutes=int(Config.EXP_ACCESS_TOKEN))
-    to_encode.update({"exp": expires, "uuid_user": str(uuid_user)})
+    to_encode.update({"exp": expires, "user_id": user_id})
     access_token = jwt.encode(to_encode, Config.SECRET_KEY, algorithm=Config.ALGORITHM)
     return access_token
 
-async def create_refresh_token(uuid_user):
-    to_encode = {"uuid_user": str(uuid_user)}
+async def create_refresh_token(user_id):
+    to_encode = {"user_id": user_id}
     expires = datetime.utcnow() + timedelta(minutes=int(Config.EXP_REFRESH_TOKEN))
-    to_encode.update({"exp": expires, "uuid_user": str(uuid_user)})
+    to_encode.update({"exp": expires, "user_id": user_id})
     refresh_token = jwt.encode(to_encode, Config.SECRET_KEY, algorithm=Config.ALGORITHM)
     return refresh_token
 
