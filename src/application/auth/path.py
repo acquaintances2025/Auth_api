@@ -7,5 +7,6 @@ PASSWORDUPDATE = "/password-update"
 
 #get
 PASSWORDRECOVERY = "/password-recovery"
+REFRESHUPDATE = "/refresh-update"
 
 

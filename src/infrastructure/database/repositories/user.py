@@ -182,4 +182,12 @@ class UserWorks(BaseRepository):
         except Exception as e:
             return False, "В процессе обновления произошла ошибка."
 
+    async def user_id_in_refresh(self, refresh_token):
+        async with self.session() as session:
+            get_user_id = select(UserTokenModel.user_id).where(UserTokenModel.refresh_token == refresh_token)
+            user_id = await session.execute(get_user_id)
+            result = user_id.mappings().first()
+            if result is not None:
+                return result["user_id"]
+
 
