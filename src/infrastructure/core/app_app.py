@@ -6,7 +6,7 @@ from fastapi.exceptions import RequestValidationError
 
 from typing import Any
 
-from src.application import test_router, auth_router
+from src.application import test_router, auth_router, profile_router
 
 
 def create_app() -> FastAPI:
@@ -57,5 +57,6 @@ def create_app() -> FastAPI:
 
     app.include_router(test_router)
     app.include_router(auth_router)
+    app.include_router(profile_router)
 
     return app

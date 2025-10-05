@@ -22,9 +22,6 @@ class TableUserModel(BaseModel):
     block_at = Column(DateTime, nullable=True)
     active_phone = Column(Boolean, nullable=True, default=False)
     active_email = Column(Boolean, nullable=True, default=False)
-    # data_object_id = Column(Integer, ForeignKey("app_datacall.id"))
-
-    # data_object = relationship("DataCallModel", back_populates="meta_info")
 
     async def to_entity(self) -> UserModel:
         return await super().to_entity(UserModel)
