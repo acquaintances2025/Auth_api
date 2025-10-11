@@ -94,6 +94,7 @@ class UserWorks(BaseRepository):
         conditions = []
         conditions.append(TableUserModel.email == email)
         conditions.append(TableUserModel.number == phone)
+        conditions.append(TableUserModel.delete_profile == False)
         async with self.session() as session:
             user_password = select(TableUserModel.password, TableUserModel.id).where(and_(*conditions))
             data_users = await session.execute(user_password)

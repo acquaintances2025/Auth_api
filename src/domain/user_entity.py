@@ -17,3 +17,7 @@ class UserModel(BaseEntity):
     block_at: datetime | None
     active_phone: bool
     active_email: bool
+    place_birth: str | None
+    delete_profile: bool | None
+    delete_profile_at: datetime | None
+

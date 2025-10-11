@@ -22,6 +22,9 @@ class TableUserModel(BaseModel):
     block_at = Column(DateTime, nullable=True)
     active_phone = Column(Boolean, nullable=True, default=False)
     active_email = Column(Boolean, nullable=True, default=False)
+    place_birth = Column(String, nullable=True)
+    delete_profile = Column(Boolean, nullable=True, default=False)
+    delete_profile_at = Column(DateTime, nullable=True)
 
     async def to_entity(self) -> UserModel:
         return await super().to_entity(UserModel)

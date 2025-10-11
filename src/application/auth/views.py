@@ -135,7 +135,7 @@ async def auth_user(auth_data):
         else:
             return JSONResponse(status_code=400, content=BaseResponseController().create_error_response("Не удалось обновить токен доступа пользователя, повторите попытку").dict())
     else:
-        return JSONResponse(status_code=401, content=BaseResponseController().create_error_response("Логин или пароль не верен.").dict())
+        return JSONResponse(status_code=401, content=BaseResponseController().create_error_response("Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.").dict())
 
 async def password_recovery(email, token=None, phone=None):
     if token is not None:

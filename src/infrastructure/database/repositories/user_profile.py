@@ -1,35 +1,19 @@
 from src.infrastructure.database.db.connection import db
 from .base import BaseRepository
+from datetime import date, datetime
 
-from datetime import datetime
-from pydantic import BaseModel
-
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from ..models.user import TableUserModel
 
-from typing import Optional, Tuple
+from src.domain import Profile, UpdateProfile
+
 
 class UserProfile(BaseRepository):
     def __init__(self):
         super().__init__(db.async_session_maker)
 
-
-    async def user_profile(self, user_id):
-
-        class Profile(BaseModel):
-            name: str
-            surname: str
-            lastname: str
-            email: str|None
-            number: str|None
-            age: int
-            birthday: datetime
-            created_at: datetime
-            active_phone: bool
-            active_email: bool
-            active: bool
-
+    async def user_profile(self, user_id: int) -> Profile|None:
         async with self.session() as session:
             get_profiles = select(TableUserModel.name,
                                   TableUserModel.surname,
@@ -48,3 +32,28 @@ class UserProfile(BaseRepository):
                 return Profile(**answer)
             else:
                 return None
+
+    async def update_user_profile(self, profile_data: UpdateProfile, user_id: int) -> bool:
+        try:
+            update_data = {k: v for k, v in dict(profile_data).items() if v is not None}
+            if profile_data.birthday is not None:
+                update_data["age"] = int(date.today().year - profile_data.birthday.year - (
+                            (date.today().month, date.today().day) < (profile_data.birthday.month, profile_data.birthday.day)))
+            async with self.session() as session:
+                user_params = update(TableUserModel).where(TableUserModel.id == user_id).values(**update_data)
+                await session.execute(user_params)
+                await session.commit()
+                return True
+        except Exception as e:
+            return False
+
+    async def delete_user_profile(self, user_id: int) -> bool:
+        try:
+            async with self.session() as session:
+                delete = update(TableUserModel).where(TableUserModel.id == user_id).values(delete_profile=True, delete_profile_at= datetime.now())
+                await session.execute(delete)
+                await session.commit()
+                return True
+        except Exception as e:
+            return False
+

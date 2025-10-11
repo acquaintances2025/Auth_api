@@ -12,6 +12,9 @@ from .password_update import PasswordUpdate
 
 from .base_response import BaseResponse
 
+from .get_profile import Profile
+from .update_profile import UpdateProfile
+
 
 
 
@@ -25,5 +28,6 @@ __all__ = [
     "TokenModel",
     "CodeModel",
     "BaseResponse",
-    "PasswordUpdate"
+    "PasswordUpdate",
+    "UpdateProfile"
 ]
