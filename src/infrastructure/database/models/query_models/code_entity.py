@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from .base import BaseEntity
+from src.domain.base import BaseEntity
 
 class CodeModel(BaseEntity):
     id: int

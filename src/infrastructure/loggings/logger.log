@@ -173,3 +173,21 @@ DETAIL:  Key (user_id)=(101) is not present in table "users".
 2025-10-17 09:41:54.108 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
 2025-10-17 09:42:59.016 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
 2025-10-17 09:43:54.733 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 11:21:34.160 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2415.ru
+2025-10-17 11:31:35.163 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-17 11:32:17.957 ERROR src.application.auth.views confirm_registration 122 Ошибка исполнения процесса (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: True (expected str, got bool)
+[SQL: UPDATE users SET email=$1::VARCHAR, active=$2::BOOLEAN WHERE users.id = $3::INTEGER]
+[parameters: (True, True, 112)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2025-10-17 11:32:17.957 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-10-17 11:34:11.022 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-17 11:34:39.571 ERROR src.application.auth.views confirm_registration 122 Ошибка исполнения процесса (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $1: True (expected str, got bool)
+[SQL: UPDATE users SET email=$1::VARCHAR, active=$2::BOOLEAN WHERE users.id = $3::INTEGER]
+[parameters: (True, True, 112)]
+(Background on this error at: https://sqlalche.me/e/20/dbapi)
+2025-10-17 11:34:39.571 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-10-17 12:02:09.783 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 12:02:19.578 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 15:06:26.805 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-10-17 15:06:26.842 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалось отправить код подтверждения на указанный email, повторите попытку.
+2025-10-17 15:08:31.288 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru

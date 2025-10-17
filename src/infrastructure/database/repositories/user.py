@@ -1,18 +1,11 @@
 import uuid
-import json
 from datetime import datetime, date, timedelta
 
 
-from sqlalchemy import select, or_, insert, and_, update
-from starlette.responses import JSONResponse
+from sqlalchemy import select, insert, and_, update
 
-from ..models.user import TableUserModel
-from ..models.token import UserTokenModel
-from ..models.confirmation_code import ConfirmationCodeModel
-from src.domain import UserModel
+from src.infrastructure import UserModel, TableUserModel, UserTokenModel, ConfirmationCodeModel, verify_password, db
 
-from src.infrastructure import verify_password
-from src.infrastructure.database.db.connection import db
 from .base import BaseRepository
 
 from typing import Optional, Tuple
@@ -60,7 +53,7 @@ class UserWorks(BaseRepository):
             await session.commit()
             return {"id": result.inserted_primary_key[0], "role": "user"}
 
-    async def confirmation_registration(self, user_id: str, code: int) -> bool:
+    async def confirmation_registration(self, user_id: str, code: int, email: str=None, phone: str=None) -> bool:
         conditions = []
         conditions.append(TableUserModel.id == user_id)
         conditions.append(ConfirmationCodeModel.code == code)
@@ -81,7 +74,12 @@ class UserWorks(BaseRepository):
                     update_code =  update(ConfirmationCodeModel).where(ConfirmationCodeModel.code == code).values(active=False)
                     await session.execute(update_code)
                     await session.commit()
-                    update_user = update(TableUserModel).where(TableUserModel.id == user_id).values(active=True)
+                    update_params = {"active": True}
+                    if email is not None:
+                        update_params["active_email"] = True
+                    if phone is not None:
+                        update_params["active_phone"] = True
+                    update_user = update(TableUserModel).where(TableUserModel.id == user_id).values(**update_params)
                     await session.execute(update_user)
                     await session.commit()
                     return True

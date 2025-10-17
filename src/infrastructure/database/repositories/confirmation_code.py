@@ -1,9 +1,8 @@
-from sqlalchemy import select, or_, insert
+from sqlalchemy import insert
 from datetime import datetime
 
 
-from src.infrastructure.database.db.connection import db
-from ..models.confirmation_code import ConfirmationCodeModel
+from src.infrastructure import db, ConfirmationCodeModel
 
 from .base import BaseRepository
 

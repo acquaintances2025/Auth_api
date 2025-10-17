@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 
-from src.domain import CodeModel
+from src.infrastructure import CodeModel, BaseModel
 
-from .base import BaseModel
 
 class ConfirmationCodeModel(BaseModel):
     __tablename__ = 'confirmation_code'

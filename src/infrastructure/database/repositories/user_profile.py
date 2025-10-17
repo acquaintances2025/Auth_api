@@ -1,12 +1,11 @@
-from src.infrastructure.database.db.connection import db
+from src.infrastructure import db, TableUserModel, Profile
 from .base import BaseRepository
 from datetime import date, datetime
 
 from sqlalchemy import select, update
 
-from ..models.user import TableUserModel
 
-from src.domain import Profile, UpdateProfile
+from src.domain import UpdateProfile
 
 
 class UserProfile(BaseRepository):
@@ -61,4 +60,3 @@ class UserProfile(BaseRepository):
                 return True
         except Exception as e:
             return False
-

@@ -1,8 +1,7 @@
-from sqlalchemy import select, or_, insert
+from sqlalchemy import insert
 
 
-from src.infrastructure.database.db.connection import db
-from ..models.token import UserTokenModel
+from src.infrastructure import UserTokenModel, db
 
 
 from .base import BaseRepository

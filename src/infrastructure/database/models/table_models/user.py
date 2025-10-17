@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
-from src.domain import UserModel
+from src.infrastructure import UserModel, BaseModel
 
-from .base import BaseModel
 
 
 class TableUserModel(BaseModel):

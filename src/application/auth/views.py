@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 from src.infrastructure import (
     create_access_token,
     create_refresh_token,
+    create_registration_access_token,
     decode_token,
     verify_password,
     get_password_hash,
@@ -16,7 +17,7 @@ from src.infrastructure import (
     BaseResponseController,
     logger)
 
-from src.infrastructure.database import (
+from src.infrastructure import (
     UserWorks,
     TokenWorks,
     CodeWorks)
@@ -76,7 +77,7 @@ async def create_user(user_data):
         uuid_user= uuid.uuid4()
         add_user = await UserWorks().create_user(uuid_user, email, phone, hash_password, user_data.name, user_data.lastname, user_data.surname, user_data.birthday)
         if add_user is not None:
-            access_token = await create_access_token(add_user["id"], add_user["role"])
+            access_token = await create_registration_access_token(add_user["id"], add_user["role"], email, phone)
             refresh_token = await create_refresh_token(add_user["id"], add_user["role"])
             await TokenWorks().create_token(add_user["id"], access_token, refresh_token)
         confirmation_code = random.randint(10000, 99999)
@@ -112,7 +113,7 @@ async def confirm_registration(code, token):
                 status_code=401,
                 content=BaseResponseController().create_error_response("Срок жизни токена истек.").dict()
             )
-        check_user_code = await UserWorks().confirmation_registration(payload["user_id"], code)
+        check_user_code = await UserWorks().confirmation_registration(payload["user_id"], code, payload["email"], payload["phone"])
         if check_user_code is True:
             return JSONResponse(status_code=200, content=BaseResponseController().create_success_response("Учетная запись пользователя активирована.").dict())
         else:

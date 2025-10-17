@@ -1,10 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 
-
-from .base import BaseModel
-
-
-from src.domain import TokenModel
+from src.infrastructure import TokenModel, BaseModel
 
 class UserTokenModel(BaseModel):
     __tablename__ = 'user_token'
