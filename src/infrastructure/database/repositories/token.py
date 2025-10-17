@@ -15,7 +15,7 @@ class TokenWorks(BaseRepository):
     async def create_token(self, user_id:int, access_token: str, refresh_token: str) -> None:
         async with self.session() as session:
             add_user_token = insert(UserTokenModel).values(
-                                                            user_id=user_id[0],
+                                                            user_id=user_id,
                                                             access_token=access_token,
                                                             refresh_token=refresh_token
                                                         )

@@ -15,7 +15,10 @@ class UserProfile(BaseRepository):
 
     async def user_profile(self, user_id: int) -> Profile|None:
         async with self.session() as session:
-            get_profiles = select(TableUserModel.name,
+            get_profiles = select(
+                                  TableUserModel.id,
+                                  TableUserModel.uuid,
+                                  TableUserModel.name,
                                   TableUserModel.surname,
                                   TableUserModel.lastname,
                                   TableUserModel.email,
@@ -33,9 +36,11 @@ class UserProfile(BaseRepository):
             else:
                 return None
 
-    async def update_user_profile(self, profile_data: UpdateProfile, user_id: int) -> bool:
+    async def update_user_profile(self, profile_data: UpdateProfile) -> bool:
         try:
+            user_id = profile_data.user_id
             update_data = {k: v for k, v in dict(profile_data).items() if v is not None}
+            del update_data["user_id"]
             if profile_data.birthday is not None:
                 update_data["age"] = int(date.today().year - profile_data.birthday.year - (
                             (date.today().month, date.today().day) < (profile_data.birthday.month, profile_data.birthday.day)))

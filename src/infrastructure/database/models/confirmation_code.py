@@ -12,6 +12,7 @@ class ConfirmationCodeModel(BaseModel):
     code = Column(Integer, nullable=False)
     created_at = Column(DateTime, nullable=False)
     active = Column(Boolean, nullable=False, default=True)
+    type = Column(String, nullable=False)
 
     async def to_entity(self) -> CodeModel:
         return await super().to_entity(CodeModel)

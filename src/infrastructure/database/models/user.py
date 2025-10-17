@@ -25,6 +25,7 @@ class TableUserModel(BaseModel):
     place_birth = Column(String, nullable=True)
     delete_profile = Column(Boolean, nullable=True, default=False)
     delete_profile_at = Column(DateTime, nullable=True)
+    role = Column(String, nullable=True)
 
     async def to_entity(self) -> UserModel:
         return await super().to_entity(UserModel)

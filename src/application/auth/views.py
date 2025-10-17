@@ -76,11 +76,11 @@ async def create_user(user_data):
         uuid_user= uuid.uuid4()
         add_user = await UserWorks().create_user(uuid_user, email, phone, hash_password, user_data.name, user_data.lastname, user_data.surname, user_data.birthday)
         if add_user is not None:
-            access_token = await create_access_token(add_user[0])
-            refresh_token = await create_refresh_token(add_user[0])
-            await TokenWorks().create_token(add_user, access_token, refresh_token)
+            access_token = await create_access_token(add_user["id"], add_user["role"])
+            refresh_token = await create_refresh_token(add_user["id"], add_user["role"])
+            await TokenWorks().create_token(add_user["id"], access_token, refresh_token)
         confirmation_code = random.randint(10000, 99999)
-        await CodeWorks().create_confirmation_code(add_user[0], confirmation_code)
+        await CodeWorks().create_confirmation_code(add_user["id"], confirmation_code, "registration")
         if email is not None:
             sent_answer = await send_email(email, confirmation_code)
 
@@ -122,11 +122,11 @@ async def confirm_registration(code, token):
         return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
 
 async def auth_user(auth_data):
-    user_id, error = await UserWorks().authorization_user(auth_data.email, auth_data.phone, auth_data.password)
-    if user_id is not None:
-        access_token = await create_access_token(user_id)
-        refresh_token = await create_refresh_token(user_id)
-        user_token_update = await UserWorks().update_user_token(user_id, access_token, refresh_token)
+    user, error = await UserWorks().authorization_user(auth_data.email, auth_data.phone, auth_data.password)
+    if user is not None:
+        access_token = await create_access_token(user["id"], user["role"])
+        refresh_token = await create_refresh_token(user["id"], user["role"])
+        user_token_update = await UserWorks().update_user_token(int(user["id"]), access_token, refresh_token)
         if user_token_update is True:
             return JSONResponse(
                 status_code=200,
@@ -155,7 +155,7 @@ async def password_recovery(email, token=None, phone=None):
                 content=BaseResponseController().create_error_response("Пользователь не найден.").dict()
             )
     confirmation_code = random.randint(10000, 99999)
-    await CodeWorks().create_confirmation_code(user_id, confirmation_code)
+    await CodeWorks().create_confirmation_code(user_id, confirmation_code, "password_recovery")
     if email is not None:
         sent_answer = await send_email(email, confirmation_code)
         if sent_answer is True:
@@ -211,11 +211,11 @@ async def user_refresh_update(request):
     payload, error = await decode_token(request.cookies["Hive"])
     if error is False:
         user_id = await UserWorks().user_id_in_refresh(request.cookies["Hive"])
-        access_token = await create_access_token(user_id)
-        refresh_token = await create_refresh_token(user_id)
+        access_token = await create_access_token(user_id, payload["role"])
+        refresh_token = await create_refresh_token(user_id, payload["role"])
     else:
-        access_token = await create_access_token(payload["user_id"])
-        refresh_token = await create_refresh_token(payload["user_id"])
+        access_token = await create_access_token(payload["user_id"], payload["role"])
+        refresh_token = await create_refresh_token(payload["user_id"], payload["role"])
     user_token_update = await UserWorks().update_user_token(payload["user_id"], access_token, refresh_token)
     if user_token_update is True:
         return JSONResponse(

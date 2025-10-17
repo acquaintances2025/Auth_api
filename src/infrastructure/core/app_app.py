@@ -17,7 +17,7 @@ def create_app() -> FastAPI:
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=["*"], #todo Поставить запрет на доступ к сервису всего кроме gatewey_api
         allow_credentials=True,
         allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
         allow_headers=["DNT", "X-CustomHeader", "Keep-Alive", "User-Agent", "X-Requested-With",

@@ -54,18 +54,20 @@ class UserWorks(BaseRepository):
                                                         birthday=birthday,
                                                         age= int(date.today().year - birthday.year - ((date.today().month, date.today().day) < (birthday.month, birthday.day))),
                                                         password=password,
-                                                        created_at=datetime.now())
+                                                        created_at=datetime.now(),
+                                                        role="user")
             result = await session.execute(new_user)
             await session.commit()
-            return result.inserted_primary_key
+            return {"id": result.inserted_primary_key[0], "role": "user"}
 
     async def confirmation_registration(self, user_id: str, code: int) -> bool:
         conditions = []
         conditions.append(TableUserModel.id == user_id)
         conditions.append(ConfirmationCodeModel.code == code)
         conditions.append(ConfirmationCodeModel.active == True)
+        conditions.append(ConfirmationCodeModel.type == "registration")
         async with (self.session() as session):
-            check_code = select(ConfirmationCodeModel.active, ConfirmationCodeModel.created_at).join(
+            check_code = select(ConfirmationCodeModel.active, ConfirmationCodeModel.created_at, ConfirmationCodeModel.type).join(
                 TableUserModel,
                 ConfirmationCodeModel.user_id == TableUserModel.id
             ).where(
@@ -90,19 +92,21 @@ class UserWorks(BaseRepository):
                     await session.commit()
                     return False
 
-    async def authorization_user(self, email: str, phone: str, password: str) -> Tuple[None|int, bool]:
+    async def authorization_user(self, email: str, phone: str, password: str) -> Tuple[None|dict[str, str], bool]:
         conditions = []
-        conditions.append(TableUserModel.email == email)
-        conditions.append(TableUserModel.number == phone)
+        if email is not None:
+            conditions.append(TableUserModel.email == email)
+        if phone is not None:
+            conditions.append(TableUserModel.number == phone)
         conditions.append(TableUserModel.delete_profile == False)
         async with self.session() as session:
-            user_password = select(TableUserModel.password, TableUserModel.id).where(and_(*conditions))
+            user_password = select(TableUserModel.password, TableUserModel.id, TableUserModel.role).where(and_(*conditions))
             data_users = await session.execute(user_password)
             result = data_users.mappings().first()
             if result is None:
                 return None, False
             if await verify_password(password, result["password"]) is True:
-                return result["id"], True
+                return {"id": result["id"], "role": result["role"]}, True
             else:
                 return None, False
 
@@ -153,7 +157,8 @@ class UserWorks(BaseRepository):
             user_time_code = select(ConfirmationCodeModel.created_at).where(and_(
                                                                                 ConfirmationCodeModel.user_id == user_id,
                                                                                 ConfirmationCodeModel.code == code,
-                                                                                ConfirmationCodeModel.active == True
+                                                                                ConfirmationCodeModel.active == True,
+                                                                                ConfirmationCodeModel.type == "password_recovery"
                                                                             )
                                                                         )
             user_time = await session.execute(user_time_code)

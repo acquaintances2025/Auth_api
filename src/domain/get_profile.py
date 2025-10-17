@@ -2,6 +2,8 @@ from datetime import  datetime
 from pydantic import BaseModel
 
 class Profile(BaseModel):
+    id: int
+    uuid: str
     name: str
     surname: str
     lastname: str

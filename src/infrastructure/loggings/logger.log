@@ -119,3 +119,57 @@ WHERE users.id = $1::VARCHAR AND confirmation_code.code = $2::INTEGER AND confir
 2025-09-30 18:17:11.506 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2413.ru
 2025-09-30 18:19:10.430 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2414.ru
 2025-09-30 18:20:06.878 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2414.ru
+2025-10-09 19:45:28.843 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалось профиль пользователя, повторите попытку.
+2025-10-10 14:00:22.827 ERROR src.application.auth.router authorization_user 44 В процессе подтверждения пользователя произошла ошибка [WinError 1225] Удаленный компьютер отклонил это сетевое подключение
+2025-10-10 14:00:22.828 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-10-10 14:01:18.316 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен.
+2025-10-10 14:01:44.386 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен.
+2025-10-10 14:01:48.529 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен.
+2025-10-10 14:03:17.501 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2414.ru
+2025-10-10 14:04:21.920 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-10-10 17:33:57.320 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2413.ru
+2025-10-11 13:34:17.862 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2413.ru
+2025-10-11 13:34:51.211 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-11 13:46:37.268 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2413.ru
+2025-10-12 19:59:12.800 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-10-12 19:59:32.103 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-12 19:59:51.141 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-12 20:17:17.320 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-12 20:18:20.004 ERROR src.application.auth.router authorization_user 44 В процессе подтверждения пользователя произошла ошибка 'type'
+2025-10-12 20:18:20.005 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-10-12 20:27:58.507 ERROR src.application.auth.views create_user 103 Ошибка исполнения процесса 0
+2025-10-12 20:27:58.507 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-10-12 20:31:10.943 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-10-12 20:32:17.759 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-12 20:32:52.657 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-12 20:34:24.020 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалась активировать учетную запись, возможно срок жизни кода подтверждения истек повторите попытку.
+2025-10-12 20:51:02.214 ERROR src.application.auth.router user_password_recovery 57 В процессе подтверждения пользователя произошла ошибка (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.ForeignKeyViolationError'>: insert or update on table "confirmation_code" violates foreign key constraint "confirmation_code_users_id_fk"
+DETAIL:  Key (user_id)=(101) is not present in table "users".
+[SQL: INSERT INTO confirmation_code (user_id, code, created_at, active, type) VALUES ($1::INTEGER, $2::INTEGER, $3::TIMESTAMP WITHOUT TIME ZONE, $4::BOOLEAN, $5::VARCHAR) RETURNING confirmation_code.id]
+[parameters: (101, 80423, datetime.datetime(2025, 10, 12, 20, 51, 2, 189417), True, 'password_recovery')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-12 20:51:02.214 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Возникла ошибка исполнения процесса.
+2025-10-12 20:51:12.600 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2412.ru
+2025-10-12 20:52:20.416 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Код подтверждения не найден.
+2025-10-13 00:40:54.964 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-16 09:10:59.552 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-16 17:13:17.638 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-16 17:13:50.952 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-16 18:13:29.861 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2414.ru
+2025-10-16 18:35:32.670 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалось обновить параметры пользователя, повторите позже.
+2025-10-16 18:37:46.852 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Не удалось обновить параметры пользователя, повторите позже.
+2025-10-17 09:12:32.227 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:13:11.674 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:31:34.238 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:32:17.150 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:33:06.937 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:33:17.027 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:33:39.897 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:34:18.319 INFO src.infrastructure.mail_service.sending_mail send_email 30 Письмо с кодом подтверждения успешно отправлено на i@dok2414.ru
+2025-10-17 09:39:34.546 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:39:56.329 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:40:03.558 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:41:33.671 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:41:54.108 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:42:59.016 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
+2025-10-17 09:43:54.733 ERROR src.infrastructure.response.base_response_controller create_error_response 17 Ошибка: Логин или пароль не верен. Либо аккаунт деактивирован, попробуйте восстановить его.
