@@ -3,7 +3,7 @@ import smsaero
 from src.config.settings import Config
 
 
-async def send_number(number, code):
+async def send_phone(number, code):
     sms_email = Config.SMS_AERO_USER
     sms_api_key = Config.SMS_AERO_API_KEY
     message = f"{code} {Config.SMS_AERO_CONFIRMATION_NUMBER}"

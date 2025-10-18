@@ -13,7 +13,7 @@ from src.infrastructure import (
     verify_password,
     get_password_hash,
     send_email,
-    send_number,
+    send_phone,
     BaseResponseController,
     logger)
 
@@ -97,7 +97,7 @@ async def create_user(user_data):
                 )
         #метод регистрации пользователя по номеру телефона, разблокировать в лучшие времена (рабочее)
         # if phone is not None:
-        #     await send_number(phone, confirmation_code)
+        #     await send_phone(phone, confirmation_code)
 
 
     except Exception as exc:
@@ -166,7 +166,7 @@ async def password_recovery(email, token=None, phone=None):
 
     # метод регистрации пользователя по номеру телефона, разблокировать в лучшие времена (рабочее)
     # if phone is not None:
-    #     await send_number(phone, confirmation_code)
+    #     await send_phone(phone, confirmation_code)
 
 
 async def user_password_update(user_data):

@@ -7,9 +7,8 @@ from .password_update import PasswordUpdate
 from .base_response import BaseResponse
 from .update_profile import UpdateProfile
 from .comfirmation_email import ConfirmationEmail
-
-
-
+from .confirmation_phone import ConfirmationPhone
+from .completion_code import CompletionCode
 
 
 __all__ = [
@@ -20,5 +19,7 @@ __all__ = [
     "BaseResponse",
     "PasswordUpdate",
     "UpdateProfile",
-    "ConfirmationEmail"
+    "ConfirmationEmail",
+    "ConfirmationPhone",
+    "CompletionCode"
 ]

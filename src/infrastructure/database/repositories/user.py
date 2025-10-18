@@ -5,6 +5,7 @@ from datetime import datetime, date, timedelta
 from sqlalchemy import select, insert, and_, update
 
 from src.infrastructure import UserModel, TableUserModel, UserTokenModel, ConfirmationCodeModel, verify_password, db
+from ..repositories.confirmation_code import CodeWorks
 
 from .base import BaseRepository
 
@@ -54,41 +55,26 @@ class UserWorks(BaseRepository):
             return {"id": result.inserted_primary_key[0], "role": "user"}
 
     async def confirmation_registration(self, user_id: str, code: int, email: str=None, phone: str=None) -> bool:
-        conditions = []
-        conditions.append(TableUserModel.id == user_id)
-        conditions.append(ConfirmationCodeModel.code == code)
-        conditions.append(ConfirmationCodeModel.active == True)
-        conditions.append(ConfirmationCodeModel.type == "registration")
-        async with (self.session() as session):
-            check_code = select(ConfirmationCodeModel.active, ConfirmationCodeModel.created_at, ConfirmationCodeModel.type).join(
-                TableUserModel,
-                ConfirmationCodeModel.user_id == TableUserModel.id
-            ).where(
-                and_(*conditions)).distinct()
-            users = await session.execute(check_code)
-            result = users.mappings().first()
-            if result is None:
-                return False
-            else:
-                if result["active"] is True and (datetime.now() - result["created_at"] < timedelta(minutes=10)) is True:
-                    update_code =  update(ConfirmationCodeModel).where(ConfirmationCodeModel.code == code).values(active=False)
-                    await session.execute(update_code)
-                    await session.commit()
-                    update_params = {"active": True}
-                    if email is not None:
-                        update_params["active_email"] = True
-                    if phone is not None:
-                        update_params["active_phone"] = True
+
+        result = await CodeWorks().check_registration_code(user_id, code)
+        if result is None:
+            return False
+        else:
+            if result["active"] is True and (datetime.now() - result["created_at"] < timedelta(minutes=10)) is True:
+                await CodeWorks().blok_confirmation_code(int(user_id), code)
+                update_params = {"active": True}
+                if email is not None:
+                    update_params["active_email"] = True
+                if phone is not None:
+                    update_params["active_phone"] = True
+                async with self.session() as session:
                     update_user = update(TableUserModel).where(TableUserModel.id == user_id).values(**update_params)
                     await session.execute(update_user)
                     await session.commit()
                     return True
-                else:
-                    update_code = update(ConfirmationCodeModel).where(ConfirmationCodeModel.code == code).values(
-                        active=False)
-                    await session.execute(update_code)
-                    await session.commit()
-                    return False
+            else:
+                await CodeWorks().blok_confirmation_code(int(user_id), code)
+                return False
 
     async def authorization_user(self, email: str, phone: str, password: str) -> Tuple[None|dict[str, str], bool]:
         conditions = []
@@ -186,12 +172,35 @@ class UserWorks(BaseRepository):
         except Exception as e:
             return False, "В процессе обновления произошла ошибка."
 
-    async def user_id_in_refresh(self, refresh_token):
+    async def user_id_in_refresh(self, refresh_token: str) -> int:
         async with self.session() as session:
             get_user_id = select(UserTokenModel.user_id).where(UserTokenModel.refresh_token == refresh_token)
             user_id = await session.execute(get_user_id)
             result = user_id.mappings().first()
             if result is not None:
                 return result["user_id"]
+
+    async def completion_confirmation_email(self, user_id: int, email: str) -> Tuple[bool, str]:
+        try:
+            async with self.session() as session:
+                print(email)
+                update_email = update(TableUserModel).where(
+                    TableUserModel.id == user_id).values(email=email, active_email=True)
+                await session.execute(update_email)
+                await session.commit()
+                return True, "Email подтвержден."
+        except Exception as e:
+            return False, "В процессе подтверждения произошла ошибка."
+
+    async def completion_confirmation_phone(self, user_id: int, phone: str) -> Tuple[bool, str]:
+        try:
+            async with self.session() as session:
+                update_phone = update(TableUserModel).where(
+                    TableUserModel.id == user_id).values(number=phone, active_phone=True)
+                await session.execute(update_phone)
+                await session.commit()
+                return True, "Номер телефона подтвержден."
+        except Exception as e:
+            return False, "В процессе подтверждения произошла ошибка."
 
 

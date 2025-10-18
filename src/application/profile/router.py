@@ -2,9 +2,9 @@
 from fastapi import APIRouter, Depends, Query
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-from src.domain import UpdateProfile, ConfirmationEmail
-from .path import GET_PROFILE, UPDATE_PROFILE, DELETE_PROFILE, CONFIRMATION_EMAIL, CONFIRMATION_PHONE
-from .views import get_user_profile, update_profile, delete_user_profile, sent_code_on_email
+from src.domain import UpdateProfile, ConfirmationEmail, ConfirmationPhone, CompletionCode
+from .path import GET_PROFILE, UPDATE_PROFILE, DELETE_PROFILE, CONFIRMATION_EMAIL, CONFIRMATION_PHONE, COMPLETION_CONFIRMATION
+from .views import get_user_profile, update_profile, delete_user_profile, sent_code_on_email, sent_code_on_phone, completion_number_or_phone
 
 profile_router = APIRouter(prefix="/profiles", tags=["profile"])
 
@@ -31,6 +31,11 @@ async def confirmation_email(user_data: ConfirmationEmail):
     return result
 
 @profile_router.put(CONFIRMATION_PHONE)
-async def put_update_profile(phone: str = Query(description="Номер телефона пользователя")):
-    result = await confirmation_user_phone(phone)
+async def confirmation_phone(user_data: ConfirmationPhone):
+    result = await sent_code_on_phone(user_data.user_id, user_data.phone)
+    return result
+
+@profile_router.put(COMPLETION_CONFIRMATION)
+async def completion_confirmation(user_data: CompletionCode):
+    result = await completion_number_or_phone(user_data.user_id, user_data.code, user_data.email, user_data.phone)
     return result

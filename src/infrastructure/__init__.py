@@ -2,7 +2,7 @@ from .security.jwt_prowider import create_access_token, create_refresh_token, de
 from .security.password_hasher import verify_password, get_password_hash
 from .loggings.logger import logger
 from .mail_service.sending_mail import send_email
-from .sms_service.sending_sms import send_number
+from .sms_service.sending_sms import send_phone
 from .response.base_response_controller import BaseResponseController
 
 from .database.db.connection import db
@@ -33,7 +33,7 @@ __all__ = [
     "verify_password",
     "get_password_hash",
     "send_email",
-    "send_number",
+    "send_phone",
     "BaseResponseController",
     "BaseModel",
     "UserWorks",
