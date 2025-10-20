@@ -14,9 +14,6 @@ async def send_phone(number, code):
             return True
         else:
             return False
-
-    # except Exception as exc:
-    #     return False
     finally:
         await sms_api.close_session()
 

@@ -1,10 +1,8 @@
 from sqlalchemy import insert
 
-
-from src.infrastructure import UserTokenModel, db
-
-
 from .base import BaseRepository
+from ..db.connection import db
+from ..models.table_models.token import UserTokenModel
 
 class TokenWorks(BaseRepository):
     def __init__(self):

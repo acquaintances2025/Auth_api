@@ -1,8 +1,8 @@
+import src.application.auth.path as p
+
 from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-
-import src.application.auth.path as p
 
 from src.domain import RegistrationUser, ConfirmationUser, AuthUser, PasswordUpdate
 from src.infrastructure import logger, BaseResponseController
@@ -10,8 +10,6 @@ from .views import create_user, confirm_registration, auth_user, password_recove
 
 auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 security = HTTPBearer(auto_error=False)
-
-
 
 
 @auth_router.post(p.REGISTRATION)
@@ -32,7 +30,6 @@ async  def confirmation_user(code: ConfirmationUser,
     except Exception as exc:
         logger.error(f"Ошибка исполнения процесса {exc}")
         return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
-
 
 
 @auth_router.post(p.AUTHORIZATION)
@@ -56,7 +53,6 @@ async def user_password_recovery(email: str = Query(default=None, description="E
     except Exception as exc:
         logger.error(f"В процессе подтверждения пользователя произошла ошибка {exc}")
         return JSONResponse(status_code=500, content=BaseResponseController().create_error_response("Возникла ошибка исполнения процесса.").dict())
-
 
 
 @auth_router.post(p.PASSWORDUPDATE)

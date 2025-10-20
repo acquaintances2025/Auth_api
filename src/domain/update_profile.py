@@ -1,8 +1,8 @@
 from pydantic import Field
-from .base import BaseEntity
-
 from datetime import datetime
-from typing import List
+
+
+from .base import BaseEntity
 
 class UpdateProfile(BaseEntity):
     user_id: int = Field(description="Id пользователя")

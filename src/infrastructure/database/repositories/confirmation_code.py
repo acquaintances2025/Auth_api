@@ -1,10 +1,10 @@
 from sqlalchemy import insert, select, and_, update
 from datetime import datetime
 
-
-from src.infrastructure import db, ConfirmationCodeModel, TableUserModel
-
 from .base import BaseRepository
+from ..db.connection import db
+from ..models.table_models.confirmation_code import ConfirmationCodeModel
+from ..models.table_models.user import TableUserModel
 
 class CodeWorks(BaseRepository):
     def __init__(self):
@@ -15,7 +15,6 @@ class CodeWorks(BaseRepository):
             add_user_code = insert(ConfirmationCodeModel).values(user_id=user_id, code=confirmation_code, created_at=datetime.now(), type=types)
             await session.execute(add_user_code)
             await session.commit()
-
 
     async def check_confirmation_code(self, user_id: int, confirmation_code: int) -> bool:
         conditions = []

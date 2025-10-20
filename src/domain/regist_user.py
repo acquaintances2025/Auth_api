@@ -1,7 +1,7 @@
 from pydantic import Field
 
 from datetime import datetime
-from src.domain import BaseEntity
+from .base import BaseEntity
 
 class RegistrationUser(BaseEntity):
     number: str | None = Field(default=None, description="Номер телефона пользователя")

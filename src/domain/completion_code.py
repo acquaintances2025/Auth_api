@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from src.domain import BaseEntity
+from .base import BaseEntity
 
 class CompletionCode(BaseEntity):
     user_id: int = Field(description="Id пользователя пользователя")

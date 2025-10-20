@@ -4,6 +4,7 @@ from .loggings.logger import logger
 from .mail_service.sending_mail import send_email
 from .sms_service.sending_sms import send_phone
 from .response.base_response_controller import BaseResponseController
+from .core.app_app import create_app
 
 from .database.db.connection import db
 
@@ -46,5 +47,6 @@ __all__ = [
     "Profile",
     "TableUserModel",
     "ConfirmationCodeModel",
-    "UserTokenModel"
+    "UserTokenModel",
+    "create_app"
 ]

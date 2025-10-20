@@ -1,20 +1,26 @@
 import uuid
-from datetime import datetime, date, timedelta
-
-
-from sqlalchemy import select, insert, and_, update
-
-from src.infrastructure import UserModel, TableUserModel, UserTokenModel, ConfirmationCodeModel, verify_password, db
-from ..repositories.confirmation_code import CodeWorks
-
-from .base import BaseRepository
 
 from typing import Optional, Tuple
+from datetime import datetime, date, timedelta
+from sqlalchemy import select, insert, and_, update
+
+from src.infrastructure import verify_password
+
+from ..models.query_models.user_entity import UserModel
+
+from ..models.table_models.user import TableUserModel
+from ..models.table_models.token import UserTokenModel
+from ..models.table_models.confirmation_code import ConfirmationCodeModel
+
+from ..db.connection import db
+
+
+from ..repositories.confirmation_code import CodeWorks
+from .base import BaseRepository
 
 class UserWorks(BaseRepository):
     def __init__(self):
         super().__init__(db.async_session_maker)
-
 
     async def check_user(self, email: Optional[str], phone: Optional[str], name: str, lastname: str, surname: str, birthday: datetime) -> UserModel:
         """Проверка наличия пользователя в базе данных"""
@@ -55,7 +61,6 @@ class UserWorks(BaseRepository):
             return {"id": result.inserted_primary_key[0], "role": "user"}
 
     async def confirmation_registration(self, user_id: str, code: int, email: str=None, phone: str=None) -> bool:
-
         result = await CodeWorks().check_registration_code(user_id, code)
         if result is None:
             return False
@@ -120,12 +125,10 @@ class UserWorks(BaseRepository):
             else:
                 return None
 
-
     async def check_user_in_user_id(self, id: int) -> int or None:
         conditions = []
         if id is not None:
             conditions.append(TableUserModel.id == id)
-
         async with self.session() as session:
             check_user = select(TableUserModel.email).where(and_(*conditions))
             user_id = await session.execute(check_user)
@@ -137,7 +140,6 @@ class UserWorks(BaseRepository):
 
     async def check_user_code_in_user_id(self, user_id: int, code: int) -> Tuple[bool, str|None]:
         async with self.session() as session:
-
             user_time_code = select(ConfirmationCodeModel.created_at).where(and_(
                                                                                 ConfirmationCodeModel.user_id == user_id,
                                                                                 ConfirmationCodeModel.code == code,
@@ -183,7 +185,6 @@ class UserWorks(BaseRepository):
     async def completion_confirmation_email(self, user_id: int, email: str) -> Tuple[bool, str]:
         try:
             async with self.session() as session:
-                print(email)
                 update_email = update(TableUserModel).where(
                     TableUserModel.id == user_id).values(email=email, active_email=True)
                 await session.execute(update_email)

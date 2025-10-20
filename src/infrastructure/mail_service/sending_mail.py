@@ -1,12 +1,10 @@
 import os
 import smtplib
 
-
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from src.config.settings import Config
-
 from ..loggings.logger import logger
 
 

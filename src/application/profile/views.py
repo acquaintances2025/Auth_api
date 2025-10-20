@@ -1,13 +1,17 @@
 import random
 import re
 
-from select import error
 from datetime import datetime, timedelta
-
-from src.infrastructure import BaseResponseController, send_email, UserProfile, CodeWorks, send_phone, UserWorks
-
-from starlette.responses import JSONResponse
+from fastapi.responses import JSONResponse
 from email_validator import validate_email, EmailNotValidError
+
+
+from src.infrastructure import BaseResponseController, send_email, send_phone
+
+
+from src.infrastructure.database.repositories.user_profile import UserProfile
+from src.infrastructure.database.repositories.confirmation_code import CodeWorks
+from src.infrastructure.database.repositories.user import UserWorks
 
 
 
@@ -17,6 +21,7 @@ async def get_user_profile(user_id: int) -> JSONResponse:
     user_profiles.birthday = user_profiles.birthday.strftime('%d.%m.%Y %H:%M:%S')
     return JSONResponse(status_code=200, content=BaseResponseController().create_success_response("Успешное выполнение запроса.", user_profiles).dict())
 
+
 async def update_profile(profile_data) -> JSONResponse:
     update_user = await UserProfile().update_user_profile(profile_data)
     if update_user:
@@ -25,6 +30,7 @@ async def update_profile(profile_data) -> JSONResponse:
     else:
         return JSONResponse(status_code=400, content=BaseResponseController().create_error_response(
             "Не удалось обновить параметры пользователя, повторите позже.").dict())
+
 
 async def delete_user_profile(user_id: int) -> JSONResponse:
     delete_user = await UserProfile().delete_user_profile(user_id)
@@ -82,6 +88,7 @@ async def sent_code_on_phone(user_id: int, phone: str) -> JSONResponse:
     else:
         return JSONResponse(status_code=400, content=BaseResponseController().create_error_response(
             "Не удалось отправить код подтверждения на указанный номер телефона, повторите попытку.").dict())
+
 
 async def completion_number_or_phone(user_id: int, code: int, email: str|None, phone: str|None) -> JSONResponse:
     if email is None and phone is None:

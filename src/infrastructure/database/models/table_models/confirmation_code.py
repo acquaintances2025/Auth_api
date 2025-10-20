@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 
-from src.infrastructure import CodeModel, BaseModel
+
+from ..base import BaseModel
+from ..query_models.code_entity import CodeModel
 
 
 class ConfirmationCodeModel(BaseModel):

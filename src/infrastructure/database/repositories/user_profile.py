@@ -1,11 +1,12 @@
-from src.infrastructure import db, TableUserModel, Profile
-from .base import BaseRepository
 from datetime import date, datetime
-
 from sqlalchemy import select, update
 
-
 from src.domain import UpdateProfile
+
+from .base import BaseRepository
+from ..db.connection import db
+from ..models.table_models.user import TableUserModel
+from ..models.query_models.get_profile import Profile
 
 
 class UserProfile(BaseRepository):

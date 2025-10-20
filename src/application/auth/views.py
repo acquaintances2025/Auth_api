@@ -1,8 +1,7 @@
+import random
 import uuid
 import re
-import random
 
-from fastapi import HTTPException, status
 from fastapi.responses import JSONResponse
 
 from src.infrastructure import (
@@ -10,17 +9,17 @@ from src.infrastructure import (
     create_refresh_token,
     create_registration_access_token,
     decode_token,
-    verify_password,
     get_password_hash,
     send_email,
     send_phone,
     BaseResponseController,
+    # UserWorks,
+    # TokenWorks,
+    # CodeWorks,
     logger)
-
-from src.infrastructure import (
-    UserWorks,
-    TokenWorks,
-    CodeWorks)
+from src.infrastructure.database.repositories.user import UserWorks
+from src.infrastructure.database.repositories.token import TokenWorks
+from src.infrastructure.database.repositories.confirmation_code import CodeWorks
 
 from email_validator import validate_email, EmailNotValidError
 

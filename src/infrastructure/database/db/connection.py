@@ -30,7 +30,7 @@ class Database:
             yield session
 
     async def create_session_pool(self):
-        logger.info("Database session pool created")
+        logger.info("Создан пул к базе данных")
         return
 
 

@@ -1,4 +1,4 @@
-from typing import Optional, TypeVar, Generic, Any
+from typing import Optional, TypeVar, Generic
 from src.domain import BaseResponse
 from ..loggings.logger import logger
 
